@@ -1,0 +1,33 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.chaomeng.cmkeeplivelib">
+
+    <application>
+        <activity
+            android:name=".floatview.FloatSettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LibTheme.LibNoActionBar" />
+
+        <service android:name=".floatview.floatwindow.FloatWindowService" />
+        <service
+            android:name=".floatview.VoicePlayService"
+            android:process=":keep.live" />
+        <service
+            android:name=".floatview.floatwindow.KeepLiveJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":job.server" />
+
+
+        <activity android:name=".floatview.floatwindow.ThreeBindActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.floatview"
+                    android:scheme="www.chaomeng" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

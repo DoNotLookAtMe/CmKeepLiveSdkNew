@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LibTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#09BB07</item>
+        <item name="colorPrimaryDark">#09BB07</item>
+        <item name="colorAccent">#09BB07</item>
+    </style>
+    <style name="LibTheme.LibNoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+</resources>

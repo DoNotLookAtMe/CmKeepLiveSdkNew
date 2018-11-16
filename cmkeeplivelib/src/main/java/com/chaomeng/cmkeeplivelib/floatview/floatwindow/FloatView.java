@@ -1,6 +1,9 @@
 package com.chaomeng.cmkeeplivelib.floatview.floatwindow;
 
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,14 +15,13 @@ import com.chaomeng.cmkeeplivelib.R;
 import java.lang.reflect.Field;
 
 
-
-
 /**
  * Author: SQSong
  * Date: 2018/9/25
  * Description:
  */
 public class FloatView extends LinearLayout {
+    private static final String TAG = "FloatView";
     /**
      * 记录小悬浮窗的宽度
      */
@@ -75,13 +77,27 @@ public class FloatView extends LinearLayout {
      */
     private float yInView;
 
-    public FloatView(Context context) {
+    public FloatView(final Context context) {
         super(context);
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         View inflate = LayoutInflater.from(context).inflate(R.layout.float_view_layout, null);
         View view = inflate.findViewById(R.id.text);
         viewWidth = view.getLayoutParams().width;
         viewHeight = view.getLayoutParams().height;
+        view.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("com.chaomeng.merchant", "com.chaomeng.merchant.home.HomeActivity"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+                try {
+                    pendingIntent.send(); // 监听到Home键按下后立即调用startActivity启动Activity会有5s延迟
+                } catch (PendingIntent.CanceledException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         addView(inflate);
     }
 
@@ -108,7 +124,7 @@ public class FloatView extends LinearLayout {
             default:
                 break;
         }
-        return true;
+        return super.onTouchEvent(event);
     }
 
     /**
